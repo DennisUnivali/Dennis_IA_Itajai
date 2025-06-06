@@ -15,7 +15,7 @@ public class Main {
 	public static HashMap<Integer,String> mapCodName = new HashMap<Integer,String>();
 	public static HashMap<String,Integer> mapNameCod = new HashMap<String,Integer>();
 	public static Random rnd = new Random();
-	
+	public static int numerodeindividuos = 1000000;
 	
 	public static void main(String[] args) {
 
@@ -23,14 +23,14 @@ public class Main {
 		
 		ArrayList<DNA> pollGenetico = new ArrayList<DNA>();
 		
-		for(int i = 0; i < 1000; i++) {
+		for(int i = 0; i < numerodeindividuos; i++) {
 			DNA dna1 = new DNA();
 			dna1.criarandomico();
-			dna1.score = avaliaDna(dna1);
+			dna1.avaliaDna();
 			pollGenetico.add(dna1);
 		}
 		
-		int numerogeracoes = 10000;
+		int numerogeracoes = 100;
 		for(int geracao = 0; geracao < numerogeracoes; geracao++) {
 			
 			Collections.sort(pollGenetico, new Comparator<DNA>() {
@@ -42,11 +42,12 @@ public class Main {
 			
 			System.out.println("Geracao "+geracao);
 			for(int i = 0; i < 10;i++) {
-				System.out.println(""+i+": "+pollGenetico.get(i).score);
+				DNA dna = pollGenetico.get(i);
+				System.out.println(""+i+": "+dna.score+","+dna.distanciaTotal+","+dna.repetidos+" "+dna);
 			}
 			
 			ArrayList<DNA> novosGenes = new ArrayList<DNA>();
-			for(int i = 0; i < 1000; i++) {
+			for(int i = 0; i < numerodeindividuos; i++) {
 				int pai = sorteio();
 				int mae = sorteio();
 				
@@ -57,7 +58,7 @@ public class Main {
 				DNA dna_pai = pollGenetico.get(pai);
 				DNA dna_mae = pollGenetico.get(mae);
 				
-				int pontocrossover = rnd.nextInt(DNA.ngenes-20)+10;
+				int pontocrossover = rnd.nextInt(DNA.ngenes-10)+5;
 				
 				DNA novodna = new DNA();
 				novodna.criaPaiMae(dna_pai, dna_mae, pontocrossover);
@@ -65,9 +66,9 @@ public class Main {
 			}
 			
 			pollGenetico.clear();
-			for(int i = 0; i < 1000; i++) {
+			for(int i = 0; i < numerodeindividuos; i++) {
 				DNA dna = novosGenes.get(i);
-				dna.score = avaliaDna(dna);
+				dna.avaliaDna();
 				pollGenetico.add(dna);
 			}
 		}
@@ -85,17 +86,6 @@ public class Main {
 			vbase = vbase/2;
 		}
 		return 9;
-	}
-
-	private static float avaliaDna(DNA dna) {
-		Float somaValor = 0.0f;
-		for(int i = 1; i < DNA.ngenes; i++) {
-			int cod1 = dna.odna[i-1];
-			int cod2 = dna.odna[i];
-			float dist = matrizdistancias[cod1][cod2];
-			somaValor+=dist;
-		}
-		return somaValor;
 	}
 
 	private static void carregaMatrizDistancia() {
