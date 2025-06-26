@@ -15,7 +15,7 @@ public class Main {
 	public static HashMap<Integer,String> mapCodName = new HashMap<Integer,String>();
 	public static HashMap<String,Integer> mapNameCod = new HashMap<String,Integer>();
 	public static Random rnd = new Random();
-	public static int numerodeindividuos = 1000000;
+	public static int numerodeindividuos = 10000000;
 	
 	public static void main(String[] args) {
 

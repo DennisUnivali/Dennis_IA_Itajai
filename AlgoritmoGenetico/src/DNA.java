@@ -1,6 +1,6 @@
 
 public class DNA {
-	public static final int ngenes = 40;//979;
+	public static final int ngenes = 30;//979;
 	public static final int nivelMutacao = 10;
 	int odna[] = new int[ngenes];
 	float score = -1;
