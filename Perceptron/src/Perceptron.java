@@ -7,7 +7,7 @@ public class Perceptron {
 		Random rnd = new Random();
 		double TreinamentoIn[][] = {{0,0},{0,1},{1,0},{1,1}};
 		//double TreinamentoOut[][] = {{0},{1},{1},{1}};
-		double TreinamentoOut[][] = {{1},{0},{0},{0}};
+		double TreinamentoOut[][] = {{0},{1},{1},{0}};
 		
 		double w[] = new double[3];//3
 		w[0] = (rnd.nextDouble()*2)-1; 
